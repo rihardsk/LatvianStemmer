@@ -2,7 +2,7 @@ __author__ = 'rihards'
 
 '''
  Original Java code can be found in https://github.com/apache/lucene-solr
- Ported to Python by Rihards Krišlauks
+ Ported to Python by Rihards Krišlauks with minor modifications
 
  * Light stemmer for Latvian.
  * <p>
@@ -141,7 +141,7 @@ def un_palatalize(s, length):
 
 
 def endswith(s, length, suffix):
-    return s[:length].endswith(suffix)
+    return "".join(s[:length]).endswith(suffix)
 
 
 def num_vowels(s):
@@ -153,7 +153,8 @@ def num_vowels(s):
     return count
 
 
-def stem(s):
+def stem_length(s):
+    s = list(s)
     numvowels = num_vowels(s)
     length = len(s)
 
@@ -162,3 +163,6 @@ def stem(s):
             length -= len(affix.affix)
             return un_palatalize(s, length) if affix.palatalizes else length
 
+
+def stem(s):
+    return s[:stem_length(s)]

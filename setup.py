@@ -15,7 +15,7 @@ LatvianStemmer
 
 The original Java code can be found in https://github.com/apache/lucene-solr
 
-Ported to Python by Rihards Krišlauks
+Ported to Python by Rihards Krišlauks with minor modifications
 
 Light stemmer for Latvian.
 --------------------------
