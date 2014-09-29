@@ -8,9 +8,7 @@ Ported to Python by Rihards Krišlauks
 Light stemmer for Latvian.
 --------------------------
 
-This is a light version of the algorithm in Karlis Kreslin's PhD thesis
-
-*A stemming algorithm for Latvian* with the following modifications:
+This is a light version of the algorithm in Karlis Kreslin's PhD thesis *A stemming algorithm for Latvian* with the following modifications:
 
 * Only explicitly stems noun and adjective morphology
 * Stricter length/vowel checks for the resulting stems (verb etc suffix stripping is removed)
