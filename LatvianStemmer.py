@@ -1,6 +1,9 @@
 __author__ = 'rihards'
 
 '''
+ Original Java code can be found in https://github.com/apache/lucene-solr
+ Ported to Python by Rihards Krišlauks
+
  * Light stemmer for Latvian.
  * <p>
  * This is a light version of the algorithm in Karlis Kreslin's PhD thesis
@@ -15,17 +18,24 @@ __author__ = 'rihards'
 '''
 
 
+class Affix:
+    def __init__(self, affix, vc, palatalizes):
+        self.affix = affix
+        self.vc = vc
+        self.palatalizes = palatalizes
+
+
 class LatvianStemmer:
     '''
     Stem a latvian word. returns the new adjusted length.
     '''
     @staticmethod
     def stem(s):
-        numVovels = LatvianStemmer.numVovels(s)
+        numvowels = LatvianStemmer.num_vowels(s)
         length = len(s)
 
         for affix in LatvianStemmer.affixes:
-            if numVovels > affix.vc and length >= len(affix.affix) + 3 and s.endswith(affix.affix):
+            if numvowels > affix.vc and length >= len(affix.affix) + 3 and s.endswith(affix.affix):
                 length -= len(affix.affix)
                 return LatvianStemmer.unpalatalize(s, length) if affix.palatalizes else length
 
@@ -86,41 +96,44 @@ class LatvianStemmer:
         # its 2,5, or 6 gen pl., and these two can only apply then.
         if s[length] == 'u':
             # kš -> kst
-            if LatvianStemmer.endsWith(s, length, "kš"):
+            if LatvianStemmer.endswith(s, length, "kš"):
                 length += 1
                 s[length - 2] = 's'
                 s[length - 1] = 't'
                 return length
-            elif LatvianStemmer.endsWith(s, length, "ņņ"):
+            elif LatvianStemmer.endswith(s, length, "ņņ"):
                 s[length - 2] = 'n'
                 s[length - 1] = 'n'
                 return length
 
         # otherwise all other rules
-        if LatvianStemmer.endsWith(s, length, "pj") or LatvianStemmer.endsWith(s, length, "bj") or LatvianStemmer.endsWith(s, length, "mj") or LatvianStemmer.endsWith(s, length, "vj"):
+        if LatvianStemmer.endswith(s, length, "pj")\
+                or LatvianStemmer.endswith(s, length, "bj")\
+                or LatvianStemmer.endswith(s, length, "mj")\
+                or LatvianStemmer.endswith(s, length, "vj"):
             # labial consonant
             return length - 1
-        elif LatvianStemmer.endsWith(s, length, "šņ"):
+        elif LatvianStemmer.endswith(s, length, "šņ"):
             s[length - 2] = 's'
             s[length - 1] = 'n'
             return length
-        elif LatvianStemmer.endsWith(s, length, "žņ"):
+        elif LatvianStemmer.endswith(s, length, "žņ"):
             s[length - 2] = 'z'
             s[length - 1] = 'n'
             return length
-        elif LatvianStemmer.endsWith(s, length, "šļ"):
+        elif LatvianStemmer.endswith(s, length, "šļ"):
             s[length - 2] = 's'
             s[length - 1] = 'l'
             return length
-        elif LatvianStemmer.endsWith(s, length, "žļ"):
+        elif LatvianStemmer.endswith(s, length, "žļ"):
             s[length - 2] = 'z'
             s[length - 1] = 'l'
             return length
-        elif LatvianStemmer.endsWith(s, length, "ļņ"):
+        elif LatvianStemmer.endswith(s, length, "ļņ"):
             s[length - 2] = 'l'
             s[length - 1] = 'n'
             return length
-        elif LatvianStemmer.endsWith(s, length, "ļļ"):
+        elif LatvianStemmer.endswith(s, length, "ļļ"):
             s[length - 2] = 'l'
             s[length - 1] = 'l'
             return length
@@ -137,23 +150,15 @@ class LatvianStemmer:
         return length
 
     @staticmethod
-    def endsWith(s, length, suffix):
+    def endswith(s, length, suffix):
         return s[:length].endswith(suffix)
 
     @staticmethod
-    def numVovels(s):
+    def num_vowels(s):
         vowels = {}.fromkeys('aāeēiouūAĀEĒIĪOUŪ')
         count = 0
         for char in s:
             if char in vowels:
                 count += 1
         return count
-
-
-
-class Affix:
-    def __init__(self, affix, vc, palatalizes):
-        self.affix = affix
-        self.vc = vc
-        self.palatalizes = palatalizes
 
