@@ -5,7 +5,7 @@ A word stemming algorithm for Latvian implemented in Python
 
 The original Java code can be found in https://github.com/apache/lucene-solr
 
-Light stemmer for Latvian.
+#Light stemmer for Latvian.
 <p>
 This is a light version of the algorithm in Karlis Kreslin's PhD thesis
 <i>A stemming algorithm for Latvian</i> with the following modifications:
