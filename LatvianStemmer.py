@@ -145,7 +145,7 @@ def endswith(s, length, suffix):
 
 
 def num_vowels(s):
-    vowels = {}.fromkeys('aāeēiouūAĀEĒIĪOUŪ')
+    vowels = {}.fromkeys('aāeēiīouūAĀEĒIĪOUŪ')
     count = 0
     for char in s:
         if char in vowels:
