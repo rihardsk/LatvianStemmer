@@ -1,4 +1,5 @@
 __author__ = 'rihards'
+import fileinput
 
 '''
  Original Java code can be found in https://github.com/apache/lucene-solr
@@ -166,3 +167,9 @@ def stem_length(s):
 
 def stem(s):
     return s[:stem_length(s)]
+
+
+if __name__ == "__main__":
+    for line in fileinput.input():
+        stems = map(stem, line.rstrip().split())
+        print(' '.join(stems))
