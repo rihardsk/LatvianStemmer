@@ -15,3 +15,12 @@ This is a light version of the algorithm in Karlis Kreslin's PhD thesis *A stemm
 * Removes only the primary inflectional suffixes: case and number for nouns case, number, gender, and definitiveness for adjectives.
 * Palatalization is only handled when a declension II,V,VI noun suffix is removed.
 
+Usage
+-----
+
+```sh
+pip install LatvianStemmer
+lvstemmer < input.txt > output.txt
+# or
+lvstemmer input1.txt input2.txt > output.txt
+```
