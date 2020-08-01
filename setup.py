@@ -37,5 +37,10 @@ This is a light version of the algorithm in Karlis Kreslin's PhD thesis *A stemm
         'Intended Audience :: Developers',
         'Topic :: Text Processing :: Linguistic',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ]
+    ],
+    entry_points={
+        "console_scripts": [
+            "lvstemmer = LatvianStemmer:main"
+        ]
+    }
 )

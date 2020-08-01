@@ -158,7 +158,11 @@ def stem(s):
     return ''.join(s)
 
 
-if __name__ == "__main__":
+def main():
     for line in fileinput.input():
         stems = map(stem, line.rstrip().split())
         print(' '.join(stems))
+
+
+if __name__ == "__main__":
+    main()
