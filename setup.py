@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='LatvianStemmer',
-    version='1.0.1',
+    version='1.0.2',
     description='Light stemmer for Latvian.',
     py_modules=['LatvianStemmer'],
     author='Rihards Krišlauks',
