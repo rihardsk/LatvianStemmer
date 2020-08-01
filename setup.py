@@ -13,6 +13,7 @@ setup(
     url='https://github.com/rihardsk/LatvianStemmer',
     license='Apache License, Version 2.0',
     long_description=readme,
+    long_description_content_type="text/markdown",
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
