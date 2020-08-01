@@ -91,11 +91,11 @@ def un_palatalize(s, length):
             length += 1
             s[length - 2] = 's'
             s[length - 1] = 't'
-            return length
+            return s[:length]
         elif endswith(s, length, "ņņ"):
             s[length - 2] = 'n'
             s[length - 1] = 'n'
-            return length
+            return s[:length]
 
     # otherwise all other rules
     if endswith(s, length, "pj")\
@@ -103,42 +103,33 @@ def un_palatalize(s, length):
             or endswith(s, length, "mj")\
             or endswith(s, length, "vj"):
         # labial consonant
-        return length - 1
+        length = length - 1
     elif endswith(s, length, "šņ"):
         s[length - 2] = 's'
         s[length - 1] = 'n'
-        return length
     elif endswith(s, length, "žņ"):
         s[length - 2] = 'z'
         s[length - 1] = 'n'
-        return length
     elif endswith(s, length, "šļ"):
         s[length - 2] = 's'
         s[length - 1] = 'l'
-        return length
     elif endswith(s, length, "žļ"):
         s[length - 2] = 'z'
         s[length - 1] = 'l'
-        return length
     elif endswith(s, length, "ļņ"):
         s[length - 2] = 'l'
         s[length - 1] = 'n'
-        return length
     elif endswith(s, length, "ļļ"):
         s[length - 2] = 'l'
         s[length - 1] = 'l'
-        return length
     elif s[length - 1] == 'č':
         s[length - 1] = 'c'
-        return length
     elif s[length - 1] == 'ļ':
         s[length - 1] = 'l'
-        return length
     elif s[length - 1] == 'ņ':
         s[length - 1] = 'n'
-        return length
 
-    return length
+    return s[:length]
 
 
 def endswith(s, length, suffix):
@@ -154,7 +145,7 @@ def num_vowels(s):
     return count
 
 
-def stem_length(s):
+def stem(s):
     s = list(s)
     numvowels = num_vowels(s)
     length = len(s)
@@ -162,11 +153,9 @@ def stem_length(s):
     for affix in affixes:
         if numvowels > affix.vc and length >= len(affix.affix) + 3 and endswith(s, length, affix.affix):
             length -= len(affix.affix)
-            return un_palatalize(s, length) if affix.palatalizes else length
-
-
-def stem(s):
-    return s[:stem_length(s)]
+            s = un_palatalize(s, length) if affix.palatalizes else s[:length]
+            break
+    return ''.join(s)
 
 
 if __name__ == "__main__":
